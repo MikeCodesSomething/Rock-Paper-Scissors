@@ -9,7 +9,10 @@ function game() {
     for (let round = 1; round <= totalRounds; round++) {
         console.log(`Round ${round} / ${totalRounds}, the score is Player: ${playerScore}, Computer: ${computerScore}`)
         computerChoice = getComputerChoice()
-        playerChoice = getPlayerChoice()
+        playerChoice = getPlayerChoice(round)
+        if (playerChoice === 'quit') {
+            break;
+        }
         let result = playRound(computerChoice,playerChoice)
         if (result === 'playerWin') {
             playerScore++
@@ -83,13 +86,13 @@ function getComputerChoice() {
 
 }
 
-function getPlayerChoice() {
-    choice = prompt('Choose rock, paper or scissors (lower case)')
-    if (choice === 'rock' || choice === 'paper' || choice === 'scissors') {
+function getPlayerChoice(round) {
+    choice = prompt(`Round ${round}: Choose rock, paper, scissors or quit (lower case)`)
+    if (choice === 'rock' || choice === 'paper' || choice === 'scissors' || choice === 'quit') {
         return choice
     }
     else while(true) {
-        choice = prompt('Try again, your choice must be rock, paper or scissors in lower case')
+        choice = prompt('Try again, your choice must be rock, paper, scissors or quit in lower case')
         if (choice === 'rock' || choice === 'paper' || choice === 'scissors') {
             return choice
     }

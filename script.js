@@ -7,7 +7,6 @@ let playerScoreDisplay = document.querySelector('#player-score');
 let computerScoreDisplay = document.querySelector('#computer-score');
 let buttons = document.querySelectorAll('button');
 let roundDisplay = document.querySelector('#round');
-message.textContent =`First to 5 wins, choose "Rock","Paper" or "Scissors" to play`;
 buttons.forEach(button => button.addEventListener('click',playRound));
 //message.textContent =`Final scores: Player: ${playerScore}, Computer: ${computerScore}`
 

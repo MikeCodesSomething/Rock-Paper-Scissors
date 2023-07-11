@@ -1,71 +1,80 @@
 //Script
-let totalRounds = 5
-game()
+let playerScore = 0;
+let computerScore = 0;
+let round = 0;
+let message = document.querySelector('#message');
+let playerScoreDisplay = document.querySelector('#player-score');
+let computerScoreDisplay = document.querySelector('#computer-score');
+let buttons = document.querySelectorAll('button');
+let roundDisplay = document.querySelector('#round');
+message.textContent =`First to 5 wins, choose "Rock","Paper" or "Scissors" to play`;
+buttons.forEach(button => button.addEventListener('click',playRound));
+//message.textContent =`Final scores: Player: ${playerScore}, Computer: ${computerScore}`
 
-//Functions
-function game() {
-    let playerScore = 0
-    let computerScore = 0
-    for (let round = 1; round <= totalRounds; round++) {
-        console.log(`Round ${round} / ${totalRounds}, the score is Player: ${playerScore}, Computer: ${computerScore}`)
-        computerChoice = getComputerChoice()
-        playerChoice = getPlayerChoice(round)
-        if (playerChoice === 'quit') {
-            break;
-        }
-        let result = playRound(computerChoice,playerChoice)
-        if (result === 'playerWin') {
-            playerScore++
-        }
-        if (result === 'computerWin') {
-            computerScore++
-        }
+
+
+
+function playRound(event) {
+    round += 1
+    roundDisplay.textContent = `Round ${round}`
+    computerChoice = getComputerChoice();
+    playerChoice = event.target.id; //id of the button clicked
+    announceWinner(computerChoice,playerChoice);
+    if(playerScore >= 5) {
+        message.textContent = "Game Over, player wins!"
+        buttons.forEach(button => button.disabled = true);
     }
-    console.log(`Final scores: Player: ${playerScore}, Computer: ${computerScore}`)   
+    else if (computerScore >= 5) {
+        message.textContent = "Game Over, computer wins!"
+        buttons.forEach(button => button.disabled = true);
+    } 
+    
+       
 }
 
-function playRound(computerChoice,playerChoice) {
+function announceWinner(computerChoice,playerChoice) {
     if (playerChoice === computerChoice) {
-        console.log('Draw!')
-        return 'draw'
+        message.textContent ='Draw!'
     }
     else if (playerChoice === 'rock') {
         if (computerChoice === 'scissors') {
-            console.log(`You win! ${playerChoice} beats ${computerChoice}.`)
-            return 'playerWin'
+            message.textContent =`You win! ${playerChoice} beats ${computerChoice}.`;
+            playerScore += 1;
+            playerScoreDisplay.textContent = `Player score: ${playerScore}`;
         }
         else if (computerChoice === 'paper') {
-            console.log(`You lose! ${computerChoice} beats ${playerChoice}.`)
-            return 'computerWin'
-        }
+            message.textContent =`You lose! ${computerChoice} beats ${playerChoice}.`;
+            computerScore += 1;
+            computerScoreDisplay.textContent = `Computer score: ${computerScore}`;        }
 
     }
     else if (playerChoice === 'scissors') {
         if (computerChoice === 'paper') {
-            console.log(`You win! ${playerChoice} beats ${computerChoice}.`)
-            return 'playerWin'
+            message.textContent =`You win! ${playerChoice} beats ${computerChoice}.`;
+            playerScore += 1;
+            playerScoreDisplay.textContent = `Player score: ${playerScore}`;
         }
         else if (computerChoice === 'rock') {
-            console.log(`You lose! ${computerChoice} beats ${playerChoice}.`)
-            return 'computerWin'
-
-        }
+            message.textContent =`You lose! ${computerChoice} beats ${playerChoice}.`;
+            computerScore += 1;
+            computerScoreDisplay.textContent = `Computer score: ${computerScore}`;        }
 
     }
     else if (playerChoice === 'paper') {
         if (computerChoice === 'rock') {
-            console.log(`You win! ${playerChoice} beats ${computerChoice}.`)
-            return 'playerWin'
+            message.textContent =`You win! ${playerChoice} beats ${computerChoice}.`;
+            playerScore += 1;
+            playerScoreDisplay.textContent = `Player score: ${playerScore}`;
         }
         else if (computerChoice === 'scissors') {
-            console.log(`You lose! ${computerChoice} beats ${playerChoice}.`)
-            return 'computerWin'
+            message.textContent =`You lose! ${computerChoice} beats ${playerChoice}.`;
+            computerScore += 1;
+            computerScoreDisplay.textContent = `Computer score: ${computerScore}`;
         }
 
     }
 
-    else console.log('something is wrong in the playRound function')
-       
+    else message.textContent ='something is wrong in the announceWinner function'
 }
 
 
@@ -81,22 +90,7 @@ function getComputerChoice() {
         return 'scissors'
     }
     else {
-        console.log('something is wrong in getComputerChoice')
+        message.textContent ='something is wrong in getComputerChoice'
     }
 
 }
-
-function getPlayerChoice(round) {
-    choice = prompt(`Round ${round}: Choose rock, paper, scissors or quit (lower case)`)
-    if (choice === 'rock' || choice === 'paper' || choice === 'scissors' || choice === 'quit') {
-        return choice
-    }
-    else while(true) {
-        choice = prompt('Try again, your choice must be rock, paper, scissors or quit in lower case')
-        if (choice === 'rock' || choice === 'paper' || choice === 'scissors') {
-            return choice
-    }
-    console.log('something is wrong in the getPlayerChoice function')
-    }
-}
-

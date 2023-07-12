@@ -15,16 +15,16 @@ buttons.forEach(button => button.addEventListener('click',playRound));
 
 function playRound(event) {
     round += 1
-    roundDisplay.textContent = `Round ${round}`
+    roundDisplay.textContent = `Round: ${round}`
     computerChoice = getComputerChoice();
     playerChoice = event.target.id; //id of the button clicked
     announceWinner(computerChoice,playerChoice);
     if(playerScore >= 5) {
-        message.textContent = "Game Over, player wins!"
+        message.textContent += " Game Over, player wins!"
         buttons.forEach(button => button.disabled = true);
     }
     else if (computerScore >= 5) {
-        message.textContent = "Game Over, computer wins!"
+        message.textContent += " Game Over, computer wins!"
         buttons.forEach(button => button.disabled = true);
     } 
     
@@ -33,7 +33,7 @@ function playRound(event) {
 
 function announceWinner(computerChoice,playerChoice) {
     if (playerChoice === computerChoice) {
-        message.textContent ='Draw!'
+        message.textContent =`Draw! Both played ${playerChoice}.`
     }
     else if (playerChoice === 'rock') {
         if (computerChoice === 'scissors') {

@@ -78,14 +78,14 @@ function announceWinner(computerChoice,playerChoice) {
             playerScore += 1;
             playerScoreDisplay.textContent = `Player score: ${playerScore}`;
         }
-        else if (computerChoice === 'scissors') {            computerScoreDisplay.textContent = `Computer score: ${computerScore}`;        }
-
+        else if (computerChoice === 'scissors') {
             log.textContent =`You lose! ${computerChoice} beats ${playerChoice}.`;
             computerScore += 1;
             computerScoreDisplay.textContent = `Computer score: ${computerScore}`;
         }
 
     else log.textContent ='something is wrong in the announceWinner function'
+    }
 }
 
 

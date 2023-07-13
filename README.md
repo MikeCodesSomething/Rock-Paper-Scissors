@@ -13,3 +13,4 @@ Paper beats Rock
 
 # To-do
 - ~Convert into a webpage GUI~ DONE
+- Make the number of wins needed to finish the game configurable

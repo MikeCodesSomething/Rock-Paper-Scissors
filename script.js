@@ -17,17 +17,17 @@ function playRound(event) {
     computerChoice = getComputerChoice();
     playerChoice = event.target.id; //id of the button clicked
     announceWinner(computerChoice,playerChoice);
-    if(playerScore >= WINSCORE || computerScore >= WINSCORE) {
-        buttons.forEach(button => button.disabled = true);
-        let winner = computerScore > playerScore? 'computer' : 'player'
-        log.textContent += ` Game Over, ${winner} wins!`
-        const resetButton = document.createElement('button');
-        resetButton.textContent = "Play Again";
-        resetButton.addEventListener('click',resetGame)
-        document.body.appendChild(resetButton)
+    if(playerScore >= WINSCORE || computerScore >= WINSCORE) endGame();          
+}
 
-    }
-          
+function endGame() {
+    buttons.forEach(button => button.disabled = true);
+    let winner = computerScore > playerScore? 'computer' : 'player'
+    log.textContent += ` Game Over, ${winner} wins!`
+    const resetButton = document.createElement('button');
+    resetButton.textContent = "Play Again";
+    resetButton.addEventListener('click',resetGame)
+    document.body.appendChild(resetButton)
 }
 
 function resetGame(event) {

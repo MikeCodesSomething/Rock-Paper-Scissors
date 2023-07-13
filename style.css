@@ -1,15 +1,30 @@
 #score-info {
     display: flex;
-    justify-content: space-around;
-    border: 1px solid black;
-    margin: 0% 3%
+    justify-content: center;
+    margin: 2% 3%
+}
+
+#round,
+#player-score,
+#computer-score {
+    flex: 1;
+    border: 2px solid white;
+    max-width: 200px;
+    padding: 10px;
+
 }
 
 button {
-    margin: 1%;
+    margin: 2%;
+    padding: 10px;
     min-width: 10%;
+    background-color: buttonface;
+    color: buttontext;
 }
 
 * {
-text-align: center;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    background-color: #3882f6;
+    color: white
  }

@@ -1,17 +1,15 @@
+const WINSCORE = 5
+
 //Script
 let playerScore = 0;
 let computerScore = 0;
 let round = 0;
-let message = document.querySelector('#message');
+let log = document.querySelector('#log');
 let playerScoreDisplay = document.querySelector('#player-score');
 let computerScoreDisplay = document.querySelector('#computer-score');
 let buttons = document.querySelectorAll('button');
 let roundDisplay = document.querySelector('#round');
 buttons.forEach(button => button.addEventListener('click',playRound));
-//message.textContent =`Final scores: Player: ${playerScore}, Computer: ${computerScore}`
-
-
-
 
 function playRound(event) {
     round += 1
@@ -19,61 +17,75 @@ function playRound(event) {
     computerChoice = getComputerChoice();
     playerChoice = event.target.id; //id of the button clicked
     announceWinner(computerChoice,playerChoice);
-    if(playerScore >= 5) {
-        message.textContent += " Game Over, player wins!"
+    if(playerScore >= WINSCORE || computerScore >= WINSCORE) {
         buttons.forEach(button => button.disabled = true);
+        let winner = computerScore > playerScore? 'computer' : 'player'
+        log.textContent += ` Game Over, ${winner} wins!`
+        const resetButton = document.createElement('button');
+        resetButton.textContent = "Play Again";
+        resetButton.addEventListener('click',resetGame)
+        document.body.appendChild(resetButton)
+
     }
-    else if (computerScore >= 5) {
-        message.textContent += " Game Over, computer wins!"
-        buttons.forEach(button => button.disabled = true);
-    } 
-    
-       
+          
+}
+
+function resetGame(event) {
+    resetButton = event.target;
+    resetButton.remove();
+    playerScore = 0;
+    computerScore = 0;
+    round = 0;
+    log.textContent = '"Rock","Paper" or "Scissors" to play';
+    roundDisplay.textContent = `Round: ${round}`;
+    playerScoreDisplay.textContent = `Player score: ${playerScore}`;
+    computerScoreDisplay.textContent = `Computer score: ${computerScore}`;   
+    buttons.forEach(button => button.disabled = false);
+   
 }
 
 function announceWinner(computerChoice,playerChoice) {
     if (playerChoice === computerChoice) {
-        message.textContent =`Draw! Both played ${playerChoice}.`
+        log.textContent =`Draw! Both played ${playerChoice}.`
     }
     else if (playerChoice === 'rock') {
         if (computerChoice === 'scissors') {
-            message.textContent =`You win! ${playerChoice} beats ${computerChoice}.`;
+            log.textContent =`You win! ${playerChoice} beats ${computerChoice}.`;
             playerScore += 1;
             playerScoreDisplay.textContent = `Player score: ${playerScore}`;
         }
         else if (computerChoice === 'paper') {
-            message.textContent =`You lose! ${computerChoice} beats ${playerChoice}.`;
+            log.textContent =`You lose! ${computerChoice} beats ${playerChoice}.`;
             computerScore += 1;
             computerScoreDisplay.textContent = `Computer score: ${computerScore}`;        }
 
     }
     else if (playerChoice === 'scissors') {
         if (computerChoice === 'paper') {
-            message.textContent =`You win! ${playerChoice} beats ${computerChoice}.`;
+            log.textContent =`You win! ${playerChoice} beats ${computerChoice}.`;
             playerScore += 1;
             playerScoreDisplay.textContent = `Player score: ${playerScore}`;
         }
         else if (computerChoice === 'rock') {
-            message.textContent =`You lose! ${computerChoice} beats ${playerChoice}.`;
+            log.textContent =`You lose! ${computerChoice} beats ${playerChoice}.`;
             computerScore += 1;
             computerScoreDisplay.textContent = `Computer score: ${computerScore}`;        }
 
     }
     else if (playerChoice === 'paper') {
         if (computerChoice === 'rock') {
-            message.textContent =`You win! ${playerChoice} beats ${computerChoice}.`;
+            log.textContent =`You win! ${playerChoice} beats ${computerChoice}.`;
             playerScore += 1;
             playerScoreDisplay.textContent = `Player score: ${playerScore}`;
         }
-        else if (computerChoice === 'scissors') {
-            message.textContent =`You lose! ${computerChoice} beats ${playerChoice}.`;
+        else if (computerChoice === 'scissors') {            computerScoreDisplay.textContent = `Computer score: ${computerScore}`;        }
+
+            log.textContent =`You lose! ${computerChoice} beats ${playerChoice}.`;
             computerScore += 1;
             computerScoreDisplay.textContent = `Computer score: ${computerScore}`;
         }
 
-    }
-
-    else message.textContent ='something is wrong in the announceWinner function'
+    else log.textContent ='something is wrong in the announceWinner function'
 }
 
 
@@ -89,7 +101,7 @@ function getComputerChoice() {
         return 'scissors'
     }
     else {
-        message.textContent ='something is wrong in getComputerChoice'
+        log.textContent ='something is wrong in getComputerChoice'
     }
 
 }

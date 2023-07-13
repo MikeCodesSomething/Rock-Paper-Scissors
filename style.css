@@ -1,0 +1,15 @@
+#score-info {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid black;
+    margin: 0% 3%
+}
+
+button {
+    margin: 1%;
+    min-width: 10%;
+}
+
+* {
+text-align: center;
+ }
